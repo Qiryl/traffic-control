@@ -9,6 +9,7 @@ import (
 type Config struct {
     Server ServerConfig
     Logger LoggerConfig
+    File   FileConfig
 }
 
 type ServerConfig struct {
@@ -16,6 +17,11 @@ type ServerConfig struct {
 }
 
 type LoggerConfig struct {
+}
+
+
+type FileConfig struct {
+    Path string
 }
 
 func LoadConfig(filename string) (*viper.Viper, error) {

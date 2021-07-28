@@ -3,3 +3,6 @@ server:
 
 logger:
   level: "debug"
+
+file:
+  path: "./data.csv"

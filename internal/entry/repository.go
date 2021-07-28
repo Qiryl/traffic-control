@@ -6,5 +6,5 @@ import (
 
 type Repository interface {
     CreateEntry(entry *models.Entry) error
-    GetEntries() error
+    // GetEntries() error
 }

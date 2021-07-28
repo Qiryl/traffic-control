@@ -1,4 +1,4 @@
-package entry
+package localstorage
 
 import (
     "os"
@@ -8,17 +8,17 @@ import (
 )
 
 type EntryRepository struct {
-    filePath string
+    filepath string
 }
 
-func NewEntryRepository(filePath string) *EntryRepository {
+func NewEntryRepository(filepath string) *EntryRepository {
     return &EntryRepository{
-        filePath: filePath,
+        filepath: filepath,
     }
 }
 
 func (r EntryRepository) CreateEntry(entry *models.Entry) error {
-    f, err := os.OpenFile(r.filePath, os.O_CREATE|os.O_APPEND|os.O_APPEND|os.O_WRONLY, 0644)
+    f, err := os.OpenFile(r.filepath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
     if err != nil {
         log.Fatalf("Open File: %v", err)
         return err
@@ -33,7 +33,7 @@ func (r EntryRepository) CreateEntry(entry *models.Entry) error {
     return f.Close()
 }
 
-func GetEntries() error {
-
+func (r EntryRepository) GetEntries(entry *models.Entry) error {
+    
     return nil
 }

@@ -1,4 +1,4 @@
-package entry
+package usecase
 
 import (
     "github.com/Qiryl/traffic-control/internal/entry"
@@ -23,4 +23,8 @@ func (e EntryUseCase) CreateEntry(datetime, vehicleNumber string, velocity float
     }
     return e.entryRepo.CreateEntry(entry)
 }
+
+// func (e EntryUseCase) GetEntries() error {
+//     return nil
+// }
 
