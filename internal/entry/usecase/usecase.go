@@ -17,8 +17,8 @@ func NewEntryUseCase(entryRepo entry.Repository) *EntryUseCase {
 
 func (e EntryUseCase) CreateEntry(datetime, vehicleNumber string, velocity float32) error {
     entry := &models.Entry{
-        Datetime: datetime,
-        VehicleNumber: vehicleNumber,
+        Date: datetime,
+        Number: vehicleNumber,
         Velocity: velocity,
     }
     return e.entryRepo.CreateEntry(entry)

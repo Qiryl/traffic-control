@@ -2,12 +2,13 @@ package http
 
 import (
     "net/http"
-    "encoding/json"
-    // "encoding/csv"
+    // "encoding/json"
+	// "github.com/gocarina/gocsv"
     "strconv"
     "github.com/Qiryl/traffic-control/internal/entry"
     // "fmt"
     "github.com/gorilla/mux"
+	"github.com/gocarina/gocsv"
 )
 
 type Entry struct {
@@ -30,6 +31,8 @@ func (h *Handler) CreateEntry(w http.ResponseWriter, r *http.Request) {
     h.useCase.CreateEntry("datetime", "number", 60.0)
 }
 
+
+
 // TODO: Add error respponse
 func (h *Handler) GetAll(w http.ResponseWriter, r *http.Request) {
     entries, err := h.useCase.GetAll()
@@ -37,14 +40,14 @@ func (h *Handler) GetAll(w http.ResponseWriter, r *http.Request) {
        //
     }
 
-    entriesJson, err := json.Marshal(entries)
+	entiesCsv, err := gocsv.MarshalBytes(entries)
     if err != nil {
        //
     }
-    w.Header().Set("Content-Type","application/json")
-    w.Write(entriesJson)
-}
 
+    w.Header().Set("Content-Type", "text/csv")
+    w.Write(entiesCsv)
+}
 
 func (h *Handler) GetByCarNumber(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
@@ -53,13 +56,17 @@ func (h *Handler) GetByCarNumber(w http.ResponseWriter, r *http.Request) {
        //
     }
 
-    entriesJson, err := json.Marshal(entries)
+    entriesCsv, err := gocsv.MarshalBytes(entries)
     if err != nil {
        //
     }
-    w.Header().Set("Content-Type","application/json")
-    w.Write(entriesJson)
+
+    w.Header().Set("Content-Type","text/csv")
+    w.Write(entriesCsv)
 }
+
+
+
 
 func (h *Handler) GetByDate(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
@@ -68,12 +75,12 @@ func (h *Handler) GetByDate(w http.ResponseWriter, r *http.Request) {
        //
     }
 
-    entriesJson, err := json.Marshal(entries)
+    entriesCsv, err := gocsv.MarshalBytes(entries)
     if err != nil {
        //
     }
-    w.Header().Set("Content-Type","application/json")
-    w.Write(entriesJson)
+    w.Header().Set("Content-Type","text/csv")
+    w.Write(entriesCsv)
 }
 
 func (h *Handler) GetByVelocity(w http.ResponseWriter, r *http.Request) {
@@ -89,12 +96,12 @@ func (h *Handler) GetByVelocity(w http.ResponseWriter, r *http.Request) {
        //
     }
 
-    entriesJson, err := json.Marshal(entries)
+    entriesCsv, err := gocsv.MarshalBytes(entries)
     if err != nil {
        //
     }
-    w.Header().Set("Content-Type","application/json")
-    w.Write(entriesJson)
+    w.Header().Set("Content-Type","text/csv")
+    w.Write(entriesCsv)
 }
 
 func (h *Handler) GetGreaterByDate(w http.ResponseWriter, r *http.Request) {
@@ -110,12 +117,12 @@ func (h *Handler) GetGreaterByDate(w http.ResponseWriter, r *http.Request) {
        //
     }
 
-    entriesJson, err := json.Marshal(entries)
+    entriesCsv, err := gocsv.MarshalBytes(entries)
     if err != nil {
        //
     }
-    w.Header().Set("Content-Type","application/json")
-    w.Write(entriesJson)
+    w.Header().Set("Content-Type","text/csv")
+    w.Write(entriesCsv)
 }
 
 func (h *Handler) GetMinMaxByDate(w http.ResponseWriter, r *http.Request) {
@@ -125,10 +132,10 @@ func (h *Handler) GetMinMaxByDate(w http.ResponseWriter, r *http.Request) {
        //
     }
 
-    entriesJson, err := json.Marshal(entries)
+    entriesCsv, err := gocsv.MarshalBytes(entries)
     if err != nil {
        //
     }
-    w.Header().Set("Content-Type","application/json")
-    w.Write(entriesJson)
+    w.Header().Set("Content-Type","text/csv")
+    w.Write(entriesCsv)
 }
