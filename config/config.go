@@ -17,8 +17,8 @@ type ServerConfig struct {
 }
 
 type LoggerConfig struct {
+    Level string
 }
-
 
 type FileConfig struct {
     Path string

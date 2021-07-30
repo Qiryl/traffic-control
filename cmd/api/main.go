@@ -17,7 +17,11 @@ func main() {
 		log.Fatalf("Parse Config: %v", err)
 	}
 
-	s := server.NewServer(config)
+	s, err := server.NewServer(config);
+    if err != nil {
+		log.Fatalf("Parse Config: %v", err)
+    }
+
     if err := s.Start(); err != nil {
         log.Fatalf("Server Start: %v", err)
     }

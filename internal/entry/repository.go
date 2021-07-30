@@ -6,5 +6,10 @@ import (
 
 type Repository interface {
     CreateEntry(entry *models.Entry) error
-    // GetEntries() error
+    GetAll() ([]*models.Entry, error)
+    GetByCarNumber(number string) ([]*models.Entry, error)
+    GetByDate(date string) ([]*models.Entry, error)
+    GetByVelocity(velocity float32) ([]*models.Entry, error)
+    GetGreaterByDate(date string, velocity float32) ([]*models.Entry, error)
+    GetMinMaxByDate(date string) ([]*models.Entry, error)
 }

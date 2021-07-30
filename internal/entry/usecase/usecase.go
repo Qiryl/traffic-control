@@ -24,7 +24,26 @@ func (e EntryUseCase) CreateEntry(datetime, vehicleNumber string, velocity float
     return e.entryRepo.CreateEntry(entry)
 }
 
-// func (e EntryUseCase) GetEntries() error {
-//     return nil
-// }
+func (e EntryUseCase) GetAll() ([]*models.Entry, error) {
+    return e.entryRepo.GetAll()
+}
 
+func (e EntryUseCase) GetByCarNumber(number string) ([]*models.Entry, error) {
+    return e.entryRepo.GetByCarNumber(number)
+}
+
+func (e EntryUseCase) GetByDate(date string) ([]*models.Entry, error) {
+    return e.entryRepo.GetByDate(date)
+}
+
+func (e EntryUseCase) GetByVelocity(velocity float32) ([]*models.Entry, error) {
+    return e.entryRepo.GetByVelocity(velocity)
+}
+
+func (e EntryUseCase) GetGreaterByDate(date string, velocity float32) ([]*models.Entry, error) {
+    return e.entryRepo.GetGreaterByDate(date, velocity)
+}
+
+func (e EntryUseCase) GetMinMaxByDate(date string) ([]*models.Entry, error) {
+    return e.entryRepo.GetMinMaxByDate(date)
+}
