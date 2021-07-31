@@ -26,7 +26,6 @@
 * `/limit/{date}/{velocity}` - Get entries in which cars have exceeded the speed for the specified date
 * `/minmax/{date}` - Get the minimum and maximum velocity for the specified date
 
-#### Build
+#### Build and start
     make
-#### Start
-    ./api
+    make run
