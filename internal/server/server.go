@@ -6,6 +6,7 @@ import (
     "reflect"
     "time"
 
+    "github.com/sirupsen/logrus"
     "github.com/gorilla/mux"
 
     "github.com/Qiryl/traffic-control/config"
@@ -18,7 +19,7 @@ import (
 type Server struct {
 	config  *config.Config
     router  *mux.Router
-    // logger  *logrus.Logger
+    logger  *logrus.Logger
     entryUC entry.UseCase
 }
 
@@ -27,7 +28,7 @@ func NewServer(config *config.Config) (*Server, error) {
     s := &Server{
 		config:  config,
         router:  mux.NewRouter(),
-        // logger:  logrus.New(),
+        logger:  logrus.New(),
         entryUC: entryUseCase.NewEntryUseCase(entryRepo),
     }
 
