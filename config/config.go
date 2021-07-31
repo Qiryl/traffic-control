@@ -10,6 +10,7 @@ type Config struct {
     Server ServerConfig
     Logger LoggerConfig
     File   FileConfig
+    Time   TimeConfig
 }
 
 type ServerConfig struct {
@@ -22,6 +23,11 @@ type LoggerConfig struct {
 
 type FileConfig struct {
     Path string
+}
+
+type TimeConfig struct {
+    Start string
+    End string
 }
 
 func LoadConfig(filename string) (*viper.Viper, error) {

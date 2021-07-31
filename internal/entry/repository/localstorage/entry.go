@@ -2,12 +2,11 @@ package localstorage
 
 import (
     "os"
-    // "fmt"
-    // "bufio"
-    // "strconv"
     "strings"
-    "github.com/Qiryl/traffic-control/internal/models"
+
 	"github.com/gocarina/gocsv"
+
+    "github.com/Qiryl/traffic-control/internal/models"
 )
 
 type EntryRepository struct {
@@ -21,22 +20,19 @@ func NewEntryRepository(filepath string) *EntryRepository {
 }
 
 func (r EntryRepository) CreateEntry(entry *models.Entry) error {
-    // f, err := os.OpenFile(r.filepath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
-    // if err != nil {
-    //     return err
-    // }
+    file, err := os.OpenFile(r.filepath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+    if err != nil {
+        return err
+    }
 
-    // if _, err := fmt.Fprintln(f, entry.String()); err != nil {
-    //     f.Close()
-    //     return err
-    // }
+    if err := gocsv.MarshalWithoutHeaders([]*models.Entry{entry}, file); err != nil {
+        file.Close()
+        return err
+    }
 
-    return nil
+    return file.Close()
 }
 
-
-
-// +
 func (r EntryRepository) GetAll() ([]*models.Entry, error) {
     file, err := os.OpenFile(r.filepath, os.O_RDONLY, 0644)
     if err != nil {
@@ -52,7 +48,6 @@ func (r EntryRepository) GetAll() ([]*models.Entry, error) {
 	return entries, file.Close()
 }
 
-// - 
 func (r EntryRepository) GetByCarNumber(number string) ([]*models.Entry, error) {
     file, err := os.OpenFile(r.filepath, os.O_RDONLY, 0644)
     if err != nil {
@@ -75,7 +70,6 @@ func (r EntryRepository) GetByCarNumber(number string) ([]*models.Entry, error) 
 	return result, file.Close()
 }
 
-// +
 func (r EntryRepository) GetByDate(date string) ([]*models.Entry, error) {
     file, err := os.OpenFile(r.filepath, os.O_RDONLY, 0644)
     if err != nil {
@@ -98,7 +92,6 @@ func (r EntryRepository) GetByDate(date string) ([]*models.Entry, error) {
 	return result, file.Close()
 }
 
-// +
 func (r EntryRepository) GetByVelocity(velocity float32) ([]*models.Entry, error) {
     file, err := os.OpenFile(r.filepath, os.O_RDONLY, 0644)
     if err != nil {
@@ -121,7 +114,6 @@ func (r EntryRepository) GetByVelocity(velocity float32) ([]*models.Entry, error
 	return result, file.Close()
 }
 
-// +
 func (r EntryRepository) GetGreaterByDate(date string, velocity float32) ([]*models.Entry, error) {
     file, err := os.OpenFile(r.filepath, os.O_RDONLY, 0644)
     if err != nil {
@@ -143,7 +135,6 @@ func (r EntryRepository) GetGreaterByDate(date string, velocity float32) ([]*mod
 	return result, file.Close()
 }
 
-//
 func (r EntryRepository) GetMinMaxByDate(date string) ([]*models.Entry, error) {
     file, err := os.OpenFile(r.filepath, os.O_RDONLY, 0644)
     if err != nil {

@@ -1,6 +1,7 @@
 package usecase
 
 import (
+    "strconv"
     "github.com/Qiryl/traffic-control/internal/entry"
     "github.com/Qiryl/traffic-control/internal/models"
 )
@@ -15,11 +16,16 @@ func NewEntryUseCase(entryRepo entry.Repository) *EntryUseCase {
     }
 }
 
-func (e EntryUseCase) CreateEntry(datetime, vehicleNumber string, velocity float32) error {
+func (e EntryUseCase) CreateEntry(datetime, vehicleNumber, velocity string) error {
+    float, err := strconv.ParseFloat(velocity, 32)
+    if err != nil {
+        return err
+    }
+    v := float32(float)
     entry := &models.Entry{
         Date: datetime,
         Number: vehicleNumber,
-        Velocity: velocity,
+        Velocity: v,
     }
     return e.entryRepo.CreateEntry(entry)
 }

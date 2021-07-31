@@ -2,20 +2,13 @@ package http
 
 import (
     "net/http"
-    // "encoding/json"
-	// "github.com/gocarina/gocsv"
     "strconv"
-    "github.com/Qiryl/traffic-control/internal/entry"
-    // "fmt"
+
     "github.com/gorilla/mux"
 	"github.com/gocarina/gocsv"
-)
 
-type Entry struct {
-    Datetime      string  `json:"datetime"`
-    VehicleNumber string  `json:"number"`
-    Velocity      float32 `json:"velocity"`
-}
+    "github.com/Qiryl/traffic-control/internal/entry"
+)
 
 type Handler struct {
     useCase entry.UseCase
@@ -28,10 +21,9 @@ func NewHandler(useCase entry.UseCase) *Handler {
 }
 
 func (h *Handler) CreateEntry(w http.ResponseWriter, r *http.Request) {
-    h.useCase.CreateEntry("datetime", "number", 60.0)
+    vars := mux.Vars(r)
+    h.useCase.CreateEntry(vars["date"], vars["number"], vars["velocity"])
 }
-
-
 
 // TODO: Add error respponse
 func (h *Handler) GetAll(w http.ResponseWriter, r *http.Request) {
@@ -64,9 +56,6 @@ func (h *Handler) GetByCarNumber(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type","text/csv")
     w.Write(entriesCsv)
 }
-
-
-
 
 func (h *Handler) GetByDate(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)

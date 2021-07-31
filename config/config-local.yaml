@@ -6,3 +6,8 @@ logger:
 
 file:
   path: "./data.csv"
+
+time:
+  start: "12:30"
+  end: "22:00"
+

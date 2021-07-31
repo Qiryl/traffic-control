@@ -5,7 +5,7 @@ import (
 )
 
 type UseCase interface {
-    CreateEntry(datetime, vehicleNumber string, velocity float32) error
+    CreateEntry(datetime, vehicleNumber, velocity string) error
     GetAll() ([]*models.Entry, error)
     GetByCarNumber(number string) ([]*models.Entry, error)
     GetByDate(date string) ([]*models.Entry, error)
