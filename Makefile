@@ -4,3 +4,6 @@ build:
 
 .DEFAULT_GOAL := build
 
+.PHONY: run
+run:
+	./api

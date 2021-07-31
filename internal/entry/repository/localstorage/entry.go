@@ -3,6 +3,7 @@ package localstorage
 import (
     "os"
     "strings"
+    "io/ioutil"
 
 	"github.com/gocarina/gocsv"
 
@@ -20,6 +21,13 @@ func NewEntryRepository(filepath string) *EntryRepository {
 }
 
 func (r EntryRepository) CreateEntry(entry *models.Entry) error {
+    if _, err := os.Stat(r.filepath); os.IsNotExist(err) {
+        err := ioutil.WriteFile(r.filepath, []byte("date,number,velocity\n"), 0755)
+        if err != nil {
+            return err
+        }
+    }
+
     file, err := os.OpenFile(r.filepath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
     if err != nil {
         return err

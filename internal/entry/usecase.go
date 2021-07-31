@@ -13,4 +13,3 @@ type UseCase interface {
     GetGreaterByDate(date string, velocity float32) ([]*models.Entry, error)
     GetMinMaxByDate(date string) ([]*models.Entry, error)
 }
-
